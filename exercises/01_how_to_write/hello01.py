@@ -1,1 +1,3 @@
-print('Hello, World!')
+#!/usr/bin/env python3
+# Say hello
+print('Hello, Lia!')
