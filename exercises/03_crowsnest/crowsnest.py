@@ -4,8 +4,9 @@ Author : lia
 Date   : 2020-01-27
 Purpose: Accepts a single positional argument
          Prints a statement and chooses 'a' or 'an' according to the argument
-Version: 3 - uses if expression instead of if statement
+Version: 4 - uses if expression instead of if statement
              uses f-string instead of str.format or concatenation
+             remove char variable
 """
 
 import argparse
@@ -36,8 +37,7 @@ def main():
 
     """choose article based on first letter of word"""
 
-    char = word[0].lower() in 'aeiou'
-    article = 'an' if char == True else 'a'
+    article = 'an' if word[0].lower() in 'aeiou' else 'a'
 
     print(f'Ahoy, Captain, {article} {word} off the larboard bow!')
 
