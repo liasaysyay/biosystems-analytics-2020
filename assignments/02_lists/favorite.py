@@ -3,6 +3,7 @@
 Author : lia
 Date   : 2020-02-10
 Purpose: Homework 2
+Version: 2 - remove the else for sep
 """
 
 import argparse
@@ -35,7 +36,7 @@ def get_args():
 
 # --------------------------------------------------
 def main():
-    """List my favorite things separated by a , or :$#@!"""
+    """List my favorite things separated by a , or any given separator. """
 
     args = get_args()
     things = args.things
@@ -43,8 +44,6 @@ def main():
 
     if args.sep:
         print(args.sep.join(things))
-    else:
-        print(', '.join(things))
 
     if num == 1:
         print('This is one of my favorite things.')
