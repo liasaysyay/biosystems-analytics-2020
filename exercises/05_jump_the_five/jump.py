@@ -33,6 +33,7 @@ def main():
 
     args = get_args()
     text = args.text
+    new_text = ''
 
     jumper = {'1': '9',
               '2': '8',
@@ -46,16 +47,9 @@ def main():
               '0': '5'}
 
     for char in text:
-        # if char in jumper:
-        #     print(jumper[char])
-        # else:
-        #     print(char)
+        new_text += jumper.get(char, char)
 
-        # print(jumper[char] if char in jumper else char, end='')
-
-        print(jumper.get(char, char), end='')
-
-    print()
+    print(new_text)
 
 
 # --------------------------------------------------
