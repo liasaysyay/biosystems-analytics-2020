@@ -6,7 +6,7 @@ Purpose: 	Store one or more positional arguments in a list
             Count the number of arguments
             Accept a --sorted argument
             Print a statement that lists the arguments with appropriate grammar
-
+Version: 1
 """
 
 import argparse
@@ -43,19 +43,20 @@ def main():
     items = args.items
 
     if args.sorted:
-        items.sort()
-
+        items = sorted(items)
     bringing = ''
 
     if len(items) == 1:
         bringing = items[0]
     elif len(items) == 2:
-        bringing = ' and ' .join(items)
+        bringing = ' and '.join(items)
     else:
         items[-1] = 'and ' + items[-1]
-        bringing = ', ' .join(items)
+        bringing = ', '.join(items)
 
-    print('You are bringing {}.'.format(bringing))
+    print(f'You are bringing {bringing}.')
+
+
 # --------------------------------------------------
 if __name__ == '__main__':
     main()
