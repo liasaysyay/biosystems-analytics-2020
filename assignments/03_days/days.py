@@ -31,7 +31,6 @@ def main():
     """A dictionary of weekly activities"""
 
     args = get_args()
-    day = args.day
 
     week = {'Monday': 'On Mondays I never go to work',
             'Tuesday': 'On Tuesdays I stay at home',
@@ -41,9 +40,10 @@ def main():
             'Saturday': "Oh, it's much too late on a Saturday",
             'Sunday': "And Sunday is the day of rest"}
 
-    for text in day:
-        print(week.get(text, f'Can\'t find "{text}"'), end="")
+    for day in args.day:
+        print(week.get(day, f'Can\'t find "{day}"'), end="")
         print()
+
 
 # --------------------------------------------------
 if __name__ == '__main__':
