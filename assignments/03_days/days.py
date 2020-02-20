@@ -41,8 +41,7 @@ def main():
             'Sunday': "And Sunday is the day of rest"}
 
     for day in args.day:
-        print(week.get(day, f'Can\'t find "{day}"'), end="")
-        print()
+        print(week.get(day, f'Can\'t find "{day}"'))
 
 
 # --------------------------------------------------
