@@ -3,6 +3,7 @@
 Author : lia
 Date   : 2020-02-25
 Purpose: Homework 4 - give the first 10 (or otherwise specified) lines of a file
+Version: 2
 """
 
 import argparse
@@ -32,12 +33,8 @@ def get_args():
 
     args = parser.parse_args()
 
-    if os.path.isfile(str(args.file)):
-        args.file = open(args.file)
-
-    if args.num and args.num < 1:
+    if args.num < 1:
         parser.error(f'--num "{args.num}" must be greater than 0')
-        parser.exit(status=1)
 
     return args
 
