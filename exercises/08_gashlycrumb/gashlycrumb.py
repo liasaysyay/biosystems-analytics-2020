@@ -3,7 +3,7 @@
 Author : lia
 Date   : 2020-03-01
 Purpose: Look up a line of text from an input file based on a letter provided by the user
-Version: 1
+Version: 2 - use dict.get()
 """
 
 import argparse
@@ -23,7 +23,7 @@ def get_args():
     parser.add_argument('letter',
                         metavar='str',
                         nargs='+',
-                        type= str,
+                        type=str,
                         help='Letter')
 
     parser.add_argument('-f',
@@ -44,10 +44,7 @@ def main():
     death_dict = {line[0].upper(): line.rstrip() for line in args.file}
 
     for letter in args.letter:
-        if letter.upper() in death_dict:
-            print(death_dict[letter.upper()])
-        else:
-            print(f'I do not know "{letter}".')
+        print(death_dict.get(letter.upper(), f'I do not know "{letter}".'))
 
 
 # --------------------------------------------------
