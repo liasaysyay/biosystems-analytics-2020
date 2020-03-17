@@ -41,10 +41,10 @@ def main():
     """Make a jazz noise here"""
 
     args = get_args()
-    death_dict = {line[0].upper(): line.rstrip() for line in args.file}
+    death_dict = {line[0].casefold(): line.rstrip() for line in args.file}
 
     for letter in args.letter:
-        print(death_dict.get(letter.upper(), f'I do not know "{letter}".'))
+        print(death_dict.get(letter.casefold(), f'I do not know "{letter}".'))
 
 
 # --------------------------------------------------

@@ -45,7 +45,7 @@ def main():
     """Make a jazz noise here"""
 
     args = get_args()
-    out_fh = open(args.outfile, 'wt') if args.outfile else sys.stdout
+    out_fh = open(args.outfile, 'wt') if args.outfile else open('out.txt', 'wt')
     print(args.text.upper(), file=out_fh)
     out_fh.close()
 
