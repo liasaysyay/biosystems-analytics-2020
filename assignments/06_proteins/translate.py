@@ -34,8 +34,8 @@ def get_args():
                         '--outfile',
                         help='Output filename',
                         metavar='FILE',
-                        type=str,
-                        default='')
+                        type=argparse.FileType('wt'),
+                        default='out.txt')
 
     return parser.parse_args()
 
@@ -47,15 +47,12 @@ def main():
     args = get_args()
 
     translation = {line.split()[0]: line.split()[1] for line in args.codons}
-    out_fh = open(args.outfile, 'wt') if args.outfile else open('out.txt', 'wt')
-    out_file = args.outfile if args.outfile else 'out.txt'
 
     k = 3
     for codon in [args.sequence[i:i + k] for i in range(0, len(args.sequence) - k + 1, 3)]:
-        print(translation.get(codon.upper().strip('\n'), '-'), file=out_fh, end="")
+        print(translation.get(codon.upper(), '-'), file=args.outfile, end="")
 
-    print(f'Output written to "{out_file}".')
-    out_fh.close()
+    print(f'Output written to "{args.outfile.name}".')
 
 
 # --------------------------------------------------
