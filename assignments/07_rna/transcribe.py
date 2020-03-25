@@ -32,9 +32,9 @@ def get_args():
                         default='out')
 
     args = parser.parse_args()
-    #
-    # if not os.path.isdir(args.outdir):
-    #     os.makedirs(args.outdir)
+
+    if not os.path.isdir(args.outdir):
+        os.makedirs(args.outdir)
 
     return args
 
@@ -49,6 +49,14 @@ def main():
     for fh in args.file:
         out_file = os.path.join(out_dir, os.path.basename(fh.name))
         out_fh = open(out_file, 'wt')
+        for line in fh:
+            print(len(line))
+            DNA = line.split()[0]
+            RNA = DNA.replace('T', 'U')
+            print(RNA, file=out_fh)
+
+    plurality = 'sequence' if len(DNA) == 1 else 'sequences'
+    print(f'Done, wrote {len(DNA)} {plurality} in {len(args.file)} file to directory "{out_dir}".')
 
 
 # --------------------------------------------------
