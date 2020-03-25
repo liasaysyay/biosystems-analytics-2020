@@ -45,18 +45,20 @@ def main():
 
     args = get_args()
     out_dir = args.outdir
+    count = 0
 
     for fh in args.file:
         out_file = os.path.join(out_dir, os.path.basename(fh.name))
         out_fh = open(out_file, 'wt')
         for line in fh:
-            print(len(line))
+            count += 1
             DNA = line.split()[0]
             RNA = DNA.replace('T', 'U')
             print(RNA, file=out_fh)
 
-    plurality = 'sequence' if len(DNA) == 1 else 'sequences'
-    print(f'Done, wrote {len(DNA)} {plurality} in {len(args.file)} file to directory "{out_dir}".')
+    sequence = 'sequence' if count == 1 else 'sequences'
+    file = 'file' if len(args.file) == 1 else 'files'
+    print(f'Done, wrote {count} {sequence} in {len(args.file)} {file} to directory "{out_dir}".')
 
 
 # --------------------------------------------------
