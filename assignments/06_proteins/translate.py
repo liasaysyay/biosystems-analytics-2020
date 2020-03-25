@@ -52,6 +52,7 @@ def main():
     for codon in [args.sequence[i:i + k] for i in range(0, len(args.sequence) - k + 1, 3)]:
         print(translation.get(codon.upper(), '-'), file=args.outfile, end="")
 
+    print('', file=args.outfile)
     print(f'Output written to "{args.outfile.name}".')
 
 
