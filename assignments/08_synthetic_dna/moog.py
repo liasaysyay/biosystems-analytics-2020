@@ -100,10 +100,12 @@ def main():
     random.seed(args.seed)
     pool = create_pool(args.pctgc, args.maxlen, args.seqtype)
 
+    count = 0
     for _ in range(args.numseqs):
+        count += 1
         seq_len = random.randint(args.minlen, args.maxlen)
         seq = random.sample(pool, seq_len)
-        print(''.join(seq), file=args.outfile)
+        print(f'>{count}', '\n',''.join(seq), file=args.outfile)
 
     args.outfile.close()
 
