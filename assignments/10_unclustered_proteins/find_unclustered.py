@@ -52,23 +52,23 @@ def main():
 
     args = get_args()
     cluster_ids = set()
-    protein_ids = set()
-    count = 0
+    num_unclustered = 0
+    num_proteins = 0
 
     for line in args.cdhit:
         if not line.startswith('>'):
             match = re.search(r'>(\d+)', line)
-            id = match.group(1)
-            cluster_ids.add(id)
+            prot_id = match.group(1)
+            cluster_ids.add(prot_id)
 
     for rec in SeqIO.parse(args.proteins, 'fasta'):
-        new_id = re.sub(r'\|.*', '', rec.id)
-        protein_ids.add(new_id)
+        protein_ids = re.sub(r'\|.*', '', rec.id)
+        num_proteins +=1
         if protein_ids not in cluster_ids:
             SeqIO.write(rec, args.outfile, 'fasta')
-            count += 1
+            num_unclustered += 1
 
-    print(f'Wrote {count} of {len(cluster_ids)} unclustered proteins to "{args.outfile}"')
+    print(f'Wrote {num_unclustered:,} of {num_proteins:,} unclustered proteins to "{args.outfile.name}"')
 
 
 # --------------------------------------------------
