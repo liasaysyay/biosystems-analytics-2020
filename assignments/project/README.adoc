@@ -1,36 +1,30 @@
-= Acey Deucy
-By Lia Crocker and K. Humberto Lopez
+= Acey Duecy
+
+By Lia Crocker and K. Humberto Lopez Felix
 
 edit this file for the project
 
+Use acey_duecy.py to play a card game of Acey Duecy. The parameters to the program are:
+
+* `players : string of player names or name of the text file containing the names of the players
+* `-b|--bank`: the starting amount of money in the bank (default: 10)
+* `-m|--money`: the starting amount of money for each player (default: 10)
+* `-s|--seed` : a random seed to use in testing (default: None)
 
 ----
-wget ftp://ftp.imicrobe.us/biosys-analytics/exercises/unclustered-proteins.tgz
-----
+$ ./acey_duecy.py -h
+usage: acey_duecy.py [-h] [-b int] [-m int] [-s seed] str [str ...]
 
-Unpack the tarball with `tar xvf unclustered-proteins.tgz`.
+Play a game of Acey Duecy
 
-Write a Python program called `find_unclustered.py` that will create a FASTA file of the unclustered proteins. The parameters to the program should be:
-
-* `-p|--proteins`: name of the FASTA file containing the original protein sequences given to CD-HIT to cluster
-* `-c|--cdhit`: name of the CD-HIT cluster file
-* `-o|--outfile` argument (default `unclustered.fa`) where to write the sequences. 
-
-----
-$ ./find_unclustered.py -h
-usage: find_unclustered.py [-h] -c cdhit -p proteins [-o outfile]
-
-Find proteins not clustered by CD-HIT
+positional arguments:
+  str                   Player names text or file
 
 optional arguments:
   -h, --help            show this help message and exit
-  -c cdhit, --cdhit cdhit
-                        Output file from CD-HIT (clustered proteins) (default:
-                        None)
-  -p proteins, --proteins proteins
-                        Proteins FASTA (default: None)
-  -o outfile, --outfile outfile
-                        Output file (default: unclustered.fa)
+  -b int, --bank int    Start value of bank (default: 10)
+  -m int, --money int   Start value for players (default: 10)
+  -s seed, --seed seed  Random Seed (default: None)
 ----					
 
 If successful, report the number of unclustered proteins written to the indicated output file:
