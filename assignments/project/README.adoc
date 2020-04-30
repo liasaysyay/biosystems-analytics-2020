@@ -78,12 +78,12 @@ collected 8 items
 
 test.py::test_exists PASSED                                              [ 12%]
 test.py::test_usage PASSED                                               [ 25%]
-test.py::test_missing_cdhit PASSED                                       [ 37%]
-test.py::test_missing_proteins PASSED                                    [ 50%]
-test.py::test_bad_protein_file PASSED                                    [ 62%]
-test.py::test_bad_cdhit_file PASSED                                      [ 75%]
-test.py::test_good_input PASSED                                          [ 87%]
-test.py::test_outfile PASSED                                             [100%]
+test.py::test_players PASSED                                             [ 37%]
+test.py::test_money PASSED                                               [ 50%]
+test.py::test_bets PASSED                                                [ 62%]
+test.py::test_winning PASSED                                             [ 75%]
+test.py::test_losing PASSED                                              [ 87%]
+test.py::test_ending PASSED                                              [100%]
 
 ========================= 8 passed, 1 warning in 5.79s =========================
 ----
