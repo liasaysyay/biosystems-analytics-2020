@@ -63,16 +63,18 @@ def main():
 
     for rec in SeqIO.parse(args.file, 'swiss'):
         taxonomy = rec.annotations.get('taxonomy')
-        keyword = rec.annotations.get('keywords')
-        taxa = set(map(str.lower, taxonomy))
-        keywords = set(map(str.lower, keyword))
+        keywords = rec.annotations.get('keywords')
 
-        if skip.intersection(taxa):
-            skipped += 1
+        if taxonomy:
+            taxa = set(map(str.lower, taxonomy))
+            if skip.intersection(taxa):
+                skipped += 1
 
-        if kw.intersection(keywords):
-            SeqIO.write(rec, args.outfile, 'fasta')
-            took += 1
+        if keywords:
+            keywords = set(map(str.lower, keywords))
+            if kw.intersection(keywords):
+                SeqIO.write(rec, args.outfile, 'fasta')
+                took += 1
 
     print(f'Done, skipped {skipped} and took {took}. See output in {args.outfile.name}.')
 
