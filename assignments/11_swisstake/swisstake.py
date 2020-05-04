@@ -58,25 +58,27 @@ def main():
     args = get_args()
     skipped = 0
     took = 0
-    skip = set(map(str.lower, args.skiptaxa))
+    skip = set(map(str.lower, args.skiptaxa or []))
     kw = set(map(str.lower, args.keyword))
 
     for rec in SeqIO.parse(args.file, 'swiss'):
         taxonomy = rec.annotations.get('taxonomy')
-        keywords = rec.annotations.get('keywords')
-
-        if taxonomy:
+        if skip and taxonomy:
             taxa = set(map(str.lower, taxonomy))
             if skip.intersection(taxa):
                 skipped += 1
+                continue
 
+        keywords = rec.annotations.get('keywords')
         if keywords:
             keywords = set(map(str.lower, keywords))
             if kw.intersection(keywords):
-                SeqIO.write(rec, args.outfile, 'fasta')
                 took += 1
+                SeqIO.write(rec, args.outfile, 'fasta-2line')
+            else:
+                skipped += 1
 
-    print(f'Done, skipped {skipped} and took {took}. See output in {args.outfile.name}.')
+    print(f'Done, skipped {skipped} and took {took}. See output in "{args.outfile.name}".')
 
 
 # --------------------------------------------------
