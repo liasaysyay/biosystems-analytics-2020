@@ -1,9 +1,9 @@
-= Acey Duecy
+= Acey Duecy Arizona Version
 
 By Lia Crocker and K. Humberto Lopez Felix
 
 
-Use acey_duecy.py to play a card game of Acey Duecy. The game is played by dealing two cards and placing bets on the next card drawn being between the two cards on the table. If the third card dealt is between the first two drawn, the players have their bets matched by the bank. If the third card dealt is not between the first two, the players lose their bets to the bank.
+Use acey_duecy.py to play a card game of (slightly modified) Acey Duecy. The game is played by dealing two cards and placing bets on the next card drawn being between the two cards on the table. If the third card dealt is between the first two drawn, the players have their bets matched by the bank. If the third card dealt is not between the first two, the players lose their bets to the bank. The game ends when the players have emptied the bank. For simplification, Jack, Queen, King and Ace have been replaced with 11, 12, 13 and 14.
 
 The parameters to the program are:
 
@@ -35,7 +35,7 @@ $ ./acey_duecy.py Lia Humberto
   {'Bank': 10}
   {'Lia': 10, 'Humberto': 10}
   Lia your card is a "6 of Clubs" and the dealer's card is a "5 of Clubs".
-  Would you like to change or keep your card? (Type change or keep):
+  Would you like to change or keep your card? (Type change to "change"  or any key to "keep"): 
    
 ----
 
@@ -46,7 +46,7 @@ $ ./acey_duecy.py Lia Humberto
   {'Bank': 10}
   {'Lia': 10, 'Humberto': 10}
   Lia your card is a "6 of Clubs" and the dealer's card is a "5 of Clubs".
-  Would you like to change or keep your card? (Type change or keep): change
+  Would you like to change or keep your card? (Type change to "change"  or any key to "keep"): change
   Your new card is a "10 of Clubs".
   Please, place your bet:
    
@@ -59,7 +59,7 @@ $ ./acey_duecy.py Lia Humberto
   {'Bank': 10}
   {'Lia': 10, 'Humberto': 10}
   Lia your card is a "6 of Clubs" and the dealer's card is a "5 of Clubs".
-  Would you like to change or keep your card? (Type change or keep): change
+  Would you like to change or keep your card? (Type change to "change"  or any key to "keep"): change
   Your new card is a "10 of Clubs".
   Please, place your bet: 3
 
@@ -71,7 +71,7 @@ $ ./acey_duecy.py Lia Humberto
   {'Bank': 7}
   {'Lia': 13, 'Humberto': 10}
   Humberto your card is an "11 of Hearts" and the dealer's card is a "6 of Spades".
-  Would you like to change or keep your card? (Type change or keep):
+  Would you like to change or keep your card? (Type change to "change"  or any key to "keep"): 
 ----
 
 The program also reports the new balance of each player and the bank. If a player loses all their chips, they cannot possibly win, so they are eliminated from the game.
@@ -83,7 +83,7 @@ $ ./acey_duecy.py Lia Humberto -s 1
   {'Bank': 5}
   {'Lia': 0, 'Humberto': 15}
   Humberto your card is a "7 of Hearts" and the dealer's card is a "4 of Hearts".
-  Would you like to change or keep your card? (Type change or keep):
+  Would you like to change or keep your card? (Type change to "change"  or any key to "keep"):
 ----
 
 If the bank is empty or all players except for one are eliminated, the game is over and a message is displayed.
@@ -93,7 +93,7 @@ $ ./acey_duecy.py Lia Humberto -s 1
   {'Bank': 10}
   {'Lia': 10, 'Humberto': 10}
   Lia your card is a "14 of Hearts" and the dealer's card is a "10 of Diamonds".
-  Would you like to change or keep your card? (Type change or keep): keep
+  Would you like to change or keep your card? (Type change to "change"  or any key to "keep"): keep
   Please, place your bet: 0
 
   The dealer places a "14 of Clubs" on the table!
@@ -104,7 +104,7 @@ $ ./acey_duecy.py Lia Humberto -s 1
   {'Bank': 10}
   {'Lia': 10, 'Humberto': 10}
   Humberto your card is a "9 of Hearts" and the dealer's card is a "14 of Diamonds".
-  Would you like to change or keep your card? (Type change or keep): change
+  Would you like to change or keep your card? (Type change to "change"  or any key to "keep"): change
   Your new card is a "2 of Hearts".
   Please, place your bet: 20
 
