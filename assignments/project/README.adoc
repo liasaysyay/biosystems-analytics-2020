@@ -32,6 +32,8 @@ If successful, report two cards from a single standard 52 card deck that were de
 
 ----
 $ ./acey_duecy.py Lia Humberto
+  {'Bank': 10}
+  {'Lia': 10, 'Humberto': 10}
   Lia your card is a "6 of Clubs" and the dealer's card is a "5 of Clubs".
   Would you like to change or keep your card? (Type change or keep):
    
@@ -41,6 +43,8 @@ If the player chooses to change their card, a new card is drawn. If the player c
 
 ----
 $ ./acey_duecy.py Lia Humberto
+  {'Bank': 10}
+  {'Lia': 10, 'Humberto': 10}
   Lia your card is a "6 of Clubs" and the dealer's card is a "5 of Clubs".
   Would you like to change or keep your card? (Type change or keep): change
   Your new card is a "10 of Clubs".
@@ -52,6 +56,8 @@ The program waits for the player to input their bet and then gives the results o
 
 ----
 $ ./acey_duecy.py Lia Humberto
+  {'Bank': 10}
+  {'Lia': 10, 'Humberto': 10}
   Lia your card is a "6 of Clubs" and the dealer's card is a "5 of Clubs".
   Would you like to change or keep your card? (Type change or keep): change
   Your new card is a "10 of Clubs".
@@ -60,13 +66,56 @@ $ ./acey_duecy.py Lia Humberto
   The dealer places a "7 of Clubs" on the table!
   The third face-up card is between the first two face-up cards.
   YOU WIN!!!
-  You win 6 chips in this round.
+  You win 3 chips in this round.
    
+  {'Bank': 7}
+  {'Lia': 13, 'Humberto': 10}
   Humberto your card is an "11 of Hearts" and the dealer's card is a "6 of Spades".
   Would you like to change or keep your card? (Type change or keep):
 ----
 
-The program waits for Humberto to input an integer as his bet. Since Humberto is the last player, the third card is dealt after he inputs his bet. The program also reports new balance of each player and the bank. Then the program will ask the user if the players want to continue to the next round. If yes, a new round will begin and keep track of scores from previous rounds. If no, the program will end and the game will be erased.
+The program also reports the new balance of each player and the bank. If a player loses all their chips, they cannot possibly win, so they are eliminated from the game.
+
+----
+$ ./acey_duecy.py Lia Humberto -s 1
+  ...
+  Oooooooooh no!!! Lia does not have money and is out of the game
+  {'Bank': 5}
+  {'Lia': 0, 'Humberto': 15}
+  Humberto your card is a "7 of Hearts" and the dealer's card is a "4 of Hearts".
+  Would you like to change or keep your card? (Type change or keep):
+----
+
+If the bank is empty or all players except for one are eliminated, the game is over and a message is displayed.
+
+----
+$ ./acey_duecy.py Lia Humberto -s 1
+  {'Bank': 10}
+  {'Lia': 10, 'Humberto': 10}
+  Lia your card is a "14 of Hearts" and the dealer's card is a "10 of Diamonds".
+  Would you like to change or keep your card? (Type change or keep): keep
+  Please, place your bet: 0
+
+  The dealer places a "14 of Clubs" on the table!
+  The third face-up card matches with one of the first two.
+  YOU LOSE!!!
+  You lose 0 chips in this round
+
+  {'Bank': 10}
+  {'Lia': 10, 'Humberto': 10}
+  Humberto your card is a "9 of Hearts" and the dealer's card is a "14 of Diamonds".
+  Would you like to change or keep your card? (Type change or keep): change
+  Your new card is a "2 of Hearts".
+  Please, place your bet: 20
+
+  The dealer places a "7 of Spades" on the table!
+  The third face-up card is between "2 of Hearts" and "14 of Diamonds".
+  YOU WIN!!!
+  You win 10 chips in this round.
+
+  GAME OVER!
+  Final Scores: {'Lia': 10, 'Humberto': 20}
+----
 
 The dialog accounts for matching the correct article (a/an) to the card that is drawn. The game also has some special cases of winning and losing. If the first two cards are consecutive, the player will lose. If the third card drawn is the same as either of the first two cards, the player will lose. If the first two cards are the same card, the player wins their bet plus two. 
 
