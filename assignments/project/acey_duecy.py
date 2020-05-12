@@ -7,26 +7,40 @@ Purpose: Final Project - plays the card game Acey Duecy
 
 import argparse
 import os
+import random
 import sys
 
 
-class players:
-    player = ''
+class card:
+    def __init__(self, suit, val):
+        self.suit = suit  # Create the variable od suit and value
+        self.value = val
+
+    def show(self):
+        print('{} of {}'.format(self.value, self.suit))  # show format of card
 
 
-money = ''
+class deck_of_game:
+    def __init__(self):
+        self.cards = []  # Initialize the variable for the deck of cards
+        self.build()
 
+    def build(self):
+        for s in ['spades', 'clubs', 'diamonds', 'hearts']:  # This loop will create a set of cards for each suit
+            for v in range(1, 14):  # This loop will create a card from 1 to 13
+                self.cards.append(card(s, v))  # Append value to card class, s for suit and v for val
 
-def description(self):
-    print("The player's name is: ", self.name)
-    return
+    def show(self):
+        for c in self.cards:
+            c.show()
 
+    def shuffle(self):
+        for i in range(len(self.cards) - 1, 0, -1):  # Start from the last card and go to zero with a -1 decrement
+            r = random.randint(0, i)  # Allow us to pick from the remaining cards
+            self.cards[i], self.cards[r] = self.cards[r], self.cards[i]  # Swap card at "i" and card at "r"
 
-class cards:
-    face = ''
-
-
-suit = ''
+    def draw_card(self):
+        return self.cards.pop()
 
 
 # --------------------------------------------------
@@ -66,23 +80,116 @@ def get_args():
 
     args = parser.parse_args()
 
-    if os.path.isfile(args.players):
-        args.players = open(args.players).read().rstrip()
+    if len(args.players) > 4:
+        parser.error(f' "{args.players}" must be between less than 4')
 
     return args
 
 
 # --------------------------------------------------
+def create_deck():
+    face_of_card = []
+    suit_of_card = ['Spades', 'Hearts', 'Diamonds', 'Clubs']
+    royal_cards = ['11', '12', '13', '14']
+    deck_of_cards = []
+    for i in range(2, 11):
+        face_of_card.append(str(i))
+    for j in range(4):
+        face_of_card.append(royal_cards[j])
+    for k in range(4):
+        for l in range(13):
+            card = (face_of_card[l] + " of " + suit_of_card[k])
+            deck_of_cards.append(card)
+    return deck_of_cards
+
+
+# --------------------------------------------------
+def shuffle_cards(deck_of_cards):
+    for k in range(0, 52):
+        i = random.randint(0, 51)
+        j = random.randint(0, 51)
+        temp = deck_of_cards[i]
+        deck_of_cards[i] = deck_of_cards[j]
+        deck_of_cards[j] = temp
+    random.shuffle(deck_of_cards)
+    return deck_of_cards
+
+
+# --------------------------------------------------
 def main():
     """Make a jazz noise here"""
-
     args = get_args()
-    com_line_player = args.players
-    player1 = players()
-    player1.name = com_line_player[0]
+    random.seed(args.seed)
+    participants = args.players
+    list_of_player = {participants[i]: args.money for i in range(len(participants))}
+    bank = {'Bank': args.bank}
+    deck = create_deck()
+    deck_shuffled = shuffle_cards(deck)
+    eliminated = 0
 
-    print(player1.description())
-    print(args.players)
+    for m in range(len(deck_shuffled)):
+        while int(bank.get('Bank')) > 0:
+            if len(deck_shuffled) < 10:
+                deck = create_deck()
+                deck_shuffled = shuffle_cards(deck)
+            for n in range(len(participants)):
+                if int(bank.get('Bank')) <= 0:
+                    break
+                if int(list_of_player[participants[n]]) <= 0:
+                    print(f'Oooooooooh no!!! {participants[n]} does not have money and is out of the game')
+                    continue
+                else:
+                    card1 = deck_shuffled.pop()
+                    card2 = deck_shuffled.pop()
+                    card3 = deck_shuffled.pop()
+                    rndm_card = deck_shuffled.pop()
+                    article1 = 'an' if int(card1[0:2]) in (8, 11) else 'a'
+                    article2 = 'an' if int(card2[0:2]) in (8, 11) else 'a'
+                    article3 = 'an' if int(card3[0:2]) in (8, 11) else 'a'
+                    print(bank)
+                    print(list_of_player, end='\n')
+                    print(
+                        f'{participants[n]} your card is {article1} "{card1}" and the dealer\'s card is {article2} "{card2}".')
+                    change_card = input('Would you like to change or keep your card? (Type change or keep): ')
+                    if change_card.lower() == 'change':
+                        card1 = rndm_card
+                        print(f'Your new card is {article1} "{card1}".')
+                    bet = int(input('Please, place your bet: '))
+                    bet = list_of_player.get(participants[n]) if bet > list_of_player.get(participants[n]) else bet
+                    print(f'\nThe dealer places {article3} "{card3}" on the table!')
+                    if int(card1[0:2]) == int(card3[0:2]) or int(card2[0:2]) == int(card3[0:2]):
+                        print('The third face-up card matches with one of the first two.\nYOU LOSE!!!')
+                        print(f'You lose {bet} chips in this round\n')
+                        new = list_of_player.get(participants[n]) - bet
+                        list_of_player[participants[n]] = new
+                    elif int(card1[0:2]) == int(card2[0:2]):
+                        print('The two face-up cards are the same.\nYOU WIN!!!')
+                        print('You win 1 chip in this round.\n')
+                        new = list_of_player.get(participants[n]) + 1
+                        list_of_player[participants[n]] = new
+                    elif int(card1[0:2]) == int(card2[0:2]) + 1 or int(card1[0:2]) == int(card2[0:2]) - 1:
+                        print('The two face-up cards are consecutive.\nYOU LOSE!!!')
+                        print(f'You lose {bet} chips in this round.\n')
+                        new = list_of_player.get(participants[n]) - bet
+                        list_of_player[participants[n]] = new
+                    else:
+                        if (int(card3[0:2]) > int(card1[0:2]) and int(card3[0:2]) < int(card2[0:2])) or \
+                                (int(card3[0:2]) < int(card1[0:2]) and int(card3[0:2]) > int(card2[0:2])):
+                            print(f'The third face-up card is between "{card1}" and "{card2}".\nYOU WIN!!!')
+                            print(f"You win {bet} chips in this round.\n")
+                            bank['Bank'] = bank.get('Bank') - bet
+                            new = list_of_player.get(participants[n]) + bet
+                            list_of_player[participants[n]] = new
+                        else:
+                            print(f'The third face-up card is not between "{card1}" and "{card2}".\nYOU LOSE!!!')
+                            print(f'You lose {bet} chips in this round.\n')
+                            bank['Bank'] = bank.get('Bank') + bet
+                            new = list_of_player.get(participants[n]) - bet
+                            list_of_player[participants[n]] = new
+
+        else:
+            print(f'GAME OVER! \nFinal Scores: {list_of_player}')
+            break
 
 
 # --------------------------------------------------
