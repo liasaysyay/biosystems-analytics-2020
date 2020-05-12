@@ -125,7 +125,6 @@ def main():
     bank = {'Bank': args.bank}
     deck = create_deck()
     deck_shuffled = shuffle_cards(deck)
-    eliminated = 0
 
     for m in range(len(deck_shuffled)):
         while int(bank.get('Bank')) > 0:
@@ -150,7 +149,8 @@ def main():
                     print(list_of_player, end='\n')
                     print(
                         f'{participants[n]} your card is {article1} "{card1}" and the dealer\'s card is {article2} "{card2}".')
-                    change_card = input('Would you like to change or keep your card? (Type change or keep): ')
+                    change_card = input(
+                        'Would you like to change or keep your card? (Type change to "change"  or any key to "keep"): ')
                     if change_card.lower() == 'change':
                         card1 = rndm_card
                         print(f'Your new card is {article1} "{card1}".')
